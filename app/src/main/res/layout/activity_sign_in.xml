@@ -64,16 +64,31 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_13ssp" />
 
-        <Button
-            android:id="@+id/signUpBtn"
+        <FrameLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/btnbg"
-            android:text="Sign In"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp">
+
+            <Button
+                android:id="@+id/signInBtn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:background="@drawable/btnbg"
+                android:text="Sign In"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressSignIn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:visibility="invisible" />
+
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/createAct"
