@@ -2,11 +2,10 @@ package com.example.chatapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.chatapp.databinding.ActivityMainBinding;
-import com.example.chatapp.databinding.ActivitySignUpBinding;
 import com.example.chatapp.databinding.ActivityUsersBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -14,7 +13,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersActivity extends AppCompatActivity {
+public class UsersActivity extends AppCompatActivity implements UserListeners {
 
     private ActivityUsersBinding binding;
     private PreferenceManager preferenceManager;
@@ -42,12 +41,12 @@ public class UsersActivity extends AppCompatActivity {
             loading(false);
             String currentUserId = preferenceManager.getString(Constants.KEY_USER_ID);
             if (task.isSuccessful() && task.getResult() != null) {
-                List<user> users = new ArrayList<>();
+                List<User> users = new ArrayList<>();
                 for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                     if (currentUserId.equals(queryDocumentSnapshot.getId())) {
                         continue;
                     }
-                    user user = new user();
+                    User user = new User();
                     user.name = queryDocumentSnapshot.getString(Constants.KEY_NAME);
                     user.email = queryDocumentSnapshot.getString(Constants.KEY_EMAIL);
                     user.image = queryDocumentSnapshot.getString(Constants.KEY_IMAGE);
@@ -55,7 +54,7 @@ public class UsersActivity extends AppCompatActivity {
                     users.add(user);
                 }
                 if (users.size() > 0) {
-                    usersAdapter usersAdapter = new usersAdapter(users);
+                    usersAdapter usersAdapter = new usersAdapter(users, this);
                     binding.recyclerView.setAdapter(usersAdapter);
                     binding.recyclerView.setVisibility(View.VISIBLE);
                 } else {
@@ -78,5 +77,12 @@ public class UsersActivity extends AppCompatActivity {
         } else {
             binding.progressBar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onUserClicked(User user) {
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        intent.putExtra(Constants.KEY_USER, user);
+        startActivity(intent);
     }
 }

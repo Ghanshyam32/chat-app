@@ -10,15 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.databinding.ItemContainerUserBinding;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
 public class usersAdapter extends RecyclerView.Adapter<usersAdapter.UserViewHolder> {
-    private final List<user> users;
+    private final List<User> users;
+    private final UserListeners userListeners;
 
-    public usersAdapter(List<user> users) {
+    public usersAdapter(List<User> users, UserListeners userListeners) {
         this.users = users;
+        this.userListeners=userListeners;
     }
 
     @NonNull
@@ -50,10 +51,11 @@ public class usersAdapter extends RecyclerView.Adapter<usersAdapter.UserViewHold
             binding = itemContainerUserBinding;
         }
 
-        void setUserData(user user) {
+        void setUserData(User user) {
             binding.userName.setText(user.name);
             binding.userEmail.setText(user.email);
             binding.imageProfile.setImageBitmap(getUerImage(user.image));
+            binding.getRoot().setOnClickListener(v-> userListeners.onUserClicked(user));
 
         }
     }
