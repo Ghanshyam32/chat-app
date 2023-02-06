@@ -67,6 +67,19 @@
         android:background="#031E46"
         app:layout_constraintTop_toBottomOf="@id/linearLayout" />
 
+    <TextView
+        android:id="@+id/onlineStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#008000"
+        android:padding="2dp"
+        android:text="Online"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10ssp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/viewSupporter" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecycler"
         android:layout_width="match_parent"
@@ -77,7 +90,7 @@
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/inputMsg"
-        app:layout_constraintTop_toBottomOf="@id/viewSupporter"
+        app:layout_constraintTop_toBottomOf="@id/onlineStatus"
         app:stackFromEnd="true" />
 
     <ProgressBar
