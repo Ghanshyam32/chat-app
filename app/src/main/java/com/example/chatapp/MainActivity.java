@@ -102,6 +102,10 @@ public class MainActivity extends BaseActivity implements ConversionListener {
     private void setListener() {
         binding.signOutImage.setOnClickListener(v -> signOut());
         binding.addBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), UsersActivity.class)));
+        binding.profileImage.setOnClickListener(view -> {
+            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(i);
+        });
     }
 
     private void loadUserDetails() {
